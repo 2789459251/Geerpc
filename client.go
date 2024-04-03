@@ -2,6 +2,7 @@ package Geerpc
 
 import (
 	"Geerpc/codec"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -9,6 +10,7 @@ import (
 	"log"
 	"net"
 	"sync"
+	"time"
 )
 
 type Call struct {
@@ -20,9 +22,13 @@ type Call struct {
 	Done          chan *Call  // Strobes when call is complete.
 }
 
-func (call *Call) done() {
-	call.Done <- call
+func (c *Call) done() {
+	c.Done <- c
 }
+
+//func (call *Call) done() {
+//	call.Done <- call
+//}
 
 // Client represents an RPC Client.
 // There may be multiple outstanding Calls associated
@@ -82,6 +88,13 @@ func (client *Client) removeCall(seq uint64) *Call {
 	return call
 }
 
+//func (c *Call) done() {
+//	c.Done <- c
+//}
+
+//	func (call *Call) done() {
+//		call.Done <- call
+//	}
 func (client *Client) terminateCalls(err error) {
 	client.sending.Lock()
 	defer client.sending.Unlock()
@@ -171,11 +184,17 @@ func (client *Client) Go(serviceMethod string, args, reply interface{}, done cha
 	return call
 }
 
-// Call invokes the named function, waits for it to complete,
-// and returns its error status.
-func (client *Client) Call(serviceMethod string, args, reply interface{}) error {
-	call := <-client.Go(serviceMethod, args, reply, make(chan *Call, 1)).Done
-	return call.Error
+// 可以创建
+func (client *Client) Call(ctx context.Context, serviceMethod string, args, reply interface{}) error {
+	call := client.Go(serviceMethod, args, reply, make(chan *Call, 1))
+	select {
+	//发送响应报文时
+	case <-ctx.Done():
+		client.removeCall(call.Seq)
+		return errors.New("rpc client:call faild: " + ctx.Err().Error())
+	case call := <-call.Done:
+		return call.Error
+	}
 }
 
 func parseOptions(opts ...*Option) (*Option, error) {
@@ -194,7 +213,7 @@ func parseOptions(opts ...*Option) (*Option, error) {
 	return opt, nil
 }
 
-func NewClient(conn net.Conn, opt *Option) (*Client, error) {
+func NewClient(conn net.Conn, opt *Option) (client *Client, err error) {
 	f := codec.NewCodecFuncMap[opt.CodecType]
 	if f == nil {
 		err := fmt.Errorf("invalid codec type %s", opt.CodecType)
@@ -221,13 +240,23 @@ func newClientCodec(cc codec.Codec, opt *Option) *Client {
 	return client
 }
 
+type clientResult struct {
+	client *Client
+	err    error
+}
+type newClientFunc func(conn net.Conn, opt *Option) (client *Client, err error)
+
+// 客户端连接超时
 // Dial connects to an RPC server at the specified network address
 func Dial(network, address string, opts ...*Option) (client *Client, err error) {
+	return dialTimeout(NewClient, network, address, opts...)
+}
+func dialTimeout(f newClientFunc, network, address string, opts ...*Option) (client *Client, err error) {
 	opt, err := parseOptions(opts...)
 	if err != nil {
 		return nil, err
 	}
-	conn, err := net.Dial(network, address)
+	conn, err := net.DialTimeout(network, address, opt.ConnectTimeout)
 	if err != nil {
 		return nil, err
 	}
@@ -237,5 +266,25 @@ func Dial(network, address string, opts ...*Option) (client *Client, err error) 
 			_ = conn.Close()
 		}
 	}()
-	return NewClient(conn, opt)
+
+	ch := make(chan clientResult)
+	go func() {
+		client, err := f(conn, opt)
+		ch <- clientResult{
+			client: client,
+			err:    err,
+		}
+	}()
+	if opt.ConnectTimeout == 0 {
+		result := <-ch //异步执行
+		return result.client, result.err
+	}
+
+	select {
+	case <-time.After(opt.ConnectTimeout):
+		//返回一个通道，这个通道会在超时时间后发送一个时间值
+		return nil, fmt.Errorf("rpc client:connect timeout:expect within %s", opt.ConnectTimeout)
+	case result := <-ch:
+		return result.client, result.err
+	}
 }
