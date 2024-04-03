@@ -184,7 +184,7 @@ func (client *Client) Go(serviceMethod string, args, reply interface{}, done cha
 	return call
 }
 
-// 可以创建
+// 可以创建具备超时检测能力的context对象控制超时
 func (client *Client) Call(ctx context.Context, serviceMethod string, args, reply interface{}) error {
 	call := client.Go(serviceMethod, args, reply, make(chan *Call, 1))
 	select {
