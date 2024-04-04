@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e1b8179-2b26-4f31-9d0a-7a297d614fd0" name="更改" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/service_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service.go" afterDir="false" />
+    <list default="true" id="0e1b8179-2b26-4f31-9d0a-7a297d614fd0" name="更改" comment="rpc之客户端连接、写响应报文服务端的超时处理">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +32,23 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;2789459251&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="8d783d1d-37da-4066-873c-98d98da878a8" />
+        <option name="url" value="git@github.com:2789459251/Geerpc.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/client.go" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -63,7 +77,7 @@
     &quot;last_opened_file_path&quot;: &quot;/usr/local/sdk/go/src/Geerpc&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;go.vgo&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -71,7 +85,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Go 构建.go build Geerpc/main">
+  <component name="RunManager" selected="Go 测试.Geerpc 中的 TestClient_dialTimeout/timeout (1)">
     <configuration name="go build Geerpc/main" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="Geerpc" />
       <working_directory value="$PROJECT_DIR$" />
@@ -79,6 +93,30 @@
       <package value="Geerpc/main" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/main/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Geerpc 中的 TestClient_dialTimeout/timeout (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="Geerpc" />
+      <working_directory value="$PROJECT_DIR$" />
+      <root_directory value="$PROJECT_DIR$/.." />
+      <kind value="PACKAGE" />
+      <package value="Geerpc" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestClient_dialTimeout\E$/^\Qtimeout\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Geerpc 中的 TestClient_dialTimeout/timeout" type="GoTestRunConfiguration" factoryName="Go Test" singleton="false" temporary="true" nameIsGenerated="true">
+      <module name="Geerpc" />
+      <working_directory value="$PROJECT_DIR$" />
+      <root_directory value="$PROJECT_DIR$/.." />
+      <kind value="FILE" />
+      <package value="Geerpc" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestClient_dialTimeout\E$/^\Qtimeout\E$" />
       <method v="2" />
     </configuration>
     <configuration name="Geerpc 中的 TestMethodType_NumCalls" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -105,7 +143,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 测试.Geerpc 中的 TestClient_dialTimeout/timeout (1)" />
         <item itemvalue="Go 构建.go build Geerpc/main" />
+        <item itemvalue="Go 测试.Geerpc 中的 TestClient_dialTimeout/timeout" />
         <item itemvalue="Go 测试.Geerpc 中的 TestMethodType_NumCalls" />
         <item itemvalue="Go 测试.Geerpc 中的 TestNewService" />
       </list>
@@ -129,9 +169,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="grpc" />
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="rpc" />
+    <MESSAGE value="rpc之客户端连接、写响应报文的超时处理" />
+    <MESSAGE value="rpc之客户端连接、写响应报文服务端的超时处理" />
+    <option name="LAST_COMMIT_MESSAGE" value="rpc之客户端连接、写响应报文服务端的超时处理" />
   </component>
   <component name="VgoProject">
+    <environment>
+      <map>
+        <entry key="GOPROXY" value=" https://goproxy.cn" />
+      </map>
+    </environment>
     <settings-migrated>true</settings-migrated>
   </component>
 </project>
