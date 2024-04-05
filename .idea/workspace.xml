@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e1b8179-2b26-4f31-9d0a-7a297d614fd0" name="更改" comment="rpc之客户端连接、写响应报文服务端的超时处理">
-      <change afterPath="$PROJECT_DIR$/.idea/Geerpc.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/client_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,9 +81,11 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "DefaultGoTemplateProperty": "Go File",
+    "Go 构建.go build Geerpc/main.executor": "Run",
     "Go 测试.Geerpc 中的 TestClient_dialTimeout/timeout (1).executor": "Run",
     "Go 测试.Geerpc 中的 TestMethodType_NumCalls.executor": "Run",
     "Go 测试.Geerpc 中的 TestNewService.executor": "Run",
+    "Go 测试.Geerpc 中的 TestXDial.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
@@ -100,7 +102,7 @@
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.goide.configuration.GoLibrariesConfigurableProvider"
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -108,7 +110,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Go 测试.Geerpc 中的 TestNewService">
+  <component name="RunManager" selected="Go 构建.go build Geerpc/main">
     <configuration name="go build Geerpc/main" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="Geerpc" />
       <working_directory value="$PROJECT_DIR$" />
@@ -123,18 +125,6 @@
       <working_directory value="$PROJECT_DIR$" />
       <root_directory value="$PROJECT_DIR$/.." />
       <kind value="PACKAGE" />
-      <package value="Geerpc" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestClient_dialTimeout\E$/^\Qtimeout\E$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Geerpc 中的 TestClient_dialTimeout/timeout" type="GoTestRunConfiguration" factoryName="Go Test" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="Geerpc" />
-      <working_directory value="$PROJECT_DIR$" />
-      <root_directory value="$PROJECT_DIR$/.." />
-      <kind value="FILE" />
       <package value="Geerpc" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
@@ -164,13 +154,24 @@
       <pattern value="^\QTestNewService\E$" />
       <method v="2" />
     </configuration>
+    <configuration name="Geerpc 中的 TestXDial" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="Geerpc" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="Geerpc" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestXDial\E$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 构建.go build Geerpc/main" />
+        <item itemvalue="Go 测试.Geerpc 中的 TestXDial" />
         <item itemvalue="Go 测试.Geerpc 中的 TestNewService" />
         <item itemvalue="Go 测试.Geerpc 中的 TestMethodType_NumCalls" />
         <item itemvalue="Go 测试.Geerpc 中的 TestClient_dialTimeout/timeout (1)" />
-        <item itemvalue="Go 构建.go build Geerpc/main" />
-        <item itemvalue="Go 测试.Geerpc 中的 TestClient_dialTimeout/timeout" />
       </list>
     </recent_temporary>
   </component>
@@ -213,5 +214,16 @@
       </map>
     </environment>
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/client.go</url>
+          <line>385</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
