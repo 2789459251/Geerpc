@@ -72,7 +72,7 @@ func (server *Server) ServerConn(conn io.ReadWriteCloser) {
 		log.Printf("rpc server: invalid codec type %s", opt.CodecType)
 		return
 	}
-	server.serverCodec(f(conn))
+	server.serverCodec(f(conn), &opt)
 
 }
 func (server *Server) Register(rcvr interface{}) error {
@@ -108,7 +108,7 @@ func (server *Server) findService(serviceMethod string) (svc *service, mtype *me
 
 var invalidRequest = struct{}{}
 
-func (server *Server) serverCodec(cc codec.Codec) {
+func (server *Server) serverCodec(cc codec.Codec, opt *Option) {
 	sending := new(sync.Mutex)
 	wg := new(sync.WaitGroup)
 	for {
@@ -123,7 +123,7 @@ func (server *Server) serverCodec(cc codec.Codec) {
 		}
 		//todo 搞懂
 		wg.Add(1)
-		go server.handleRequest(cc, req, sending, wg) //解决请求，发送回应
+		go server.handleRequest(cc, req, sending, wg, opt.HandleTimeout) //解决请求，发送回应
 	}
 	wg.Wait()
 	_ = cc.Close()
